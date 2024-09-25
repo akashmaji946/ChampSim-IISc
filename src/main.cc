@@ -5,6 +5,16 @@
 #include "uncore.h"
 #include <fstream>
 
+/*
+Original Credits: (Thanks for making it publicly available!)
+https://github.com/casperIITB/ChampSim
+https://github.com/ChampSim/ChampSim
+
+Adapted By:
+Akash Maji (akashmaji@iisc.ac.in)
+https://github.com/akashmaji946/ChampSim-IISc
+*/
+
 uint8_t warmup_complete[NUM_CPUS], 
         simulation_complete[NUM_CPUS], 
         all_warmup_complete = 0, 
