@@ -1,6 +1,18 @@
 #include "ooo_cpu.h"
+/*
+-------------------
+Storage Cost Estimation:
+-------------------
+We want to have at most 64KB for our gshare predictor per CPU
+We will use 2-bit saturating counter
+So entry size = 2 bits
+Number of entries = 64 * 8 K bits / 2 bits
+                  = 256 K
+                  = 262144
 
-#define GLOBAL_HISTORY_LENGTH 14
+*/
+
+#define GLOBAL_HISTORY_LENGTH 16
 #define GLOBAL_HISTORY_MASK (1 << GLOBAL_HISTORY_LENGTH) - 1
 int branch_history_vector[NUM_CPUS];
 
