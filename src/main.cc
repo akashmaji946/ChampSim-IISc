@@ -188,8 +188,10 @@ void finish_warmup()
 
     cout << endl;
     for (uint32_t i=0; i<NUM_CPUS; i++) {
-        cout << "Warmup complete CPU " << i << " instructions: " << ooo_cpu[i].num_retired << " cycles: " << current_core_cycle[i];
-        cout << " (Simulation time: " << elapsed_hour << " hr " << elapsed_minute << " min " << elapsed_second << " sec) " << endl;
+        cout << "Warmup Complete\n";
+        cout << "--------------------------------------------------------------" << endl;
+        cout << "CPU " << i << "\nInstructions: " << ooo_cpu[i].num_retired << "\nCycles: " << current_core_cycle[i];
+        cout << "\n(Simulation time: " << elapsed_hour << " hr " << elapsed_minute << " min " << elapsed_second << " sec) " << endl;
 
         ooo_cpu[i].begin_sim_cycle = current_core_cycle[i]; 
         ooo_cpu[i].begin_sim_instr = ooo_cpu[i].num_retired;
@@ -338,7 +340,7 @@ uint64_t va_to_pa(uint32_t cpu, uint64_t instr_id, uint64_t va, uint64_t unique_
         if (allocated_pages >= DRAM_PAGES) { // not enough memory
 
             // TODO: elaborate page replacement algorithm
-            // here, ChampSim randomly selects a page that is not recently used and we only track 32K recently accessed pages
+            // here, ChampSim-IISc randomly selects a page that is not recently used and we only track 32K recently accessed pages
             uint8_t  found_NRU = 0;
             uint64_t NRU_vpage = 0; // implement it
             map <uint64_t, uint64_t>::iterator pr2 = recent_page.begin();
@@ -406,7 +408,7 @@ uint64_t va_to_pa(uint32_t cpu, uint64_t instr_id, uint64_t va, uint64_t unique_
             }
 
             // encoding cpu number 
-            // this allows ChampSim to run homogeneous multi-programmed workloads without VA => PA aliasing
+            // this allows ChampSim-IISc to run homogeneous multi-programmed workloads without VA => PA aliasing
             // (e.g., cpu0: astar  cpu1: astar  cpu2: astar  cpu3: astar...)
             //random_ppage &= (~((NUM_CPUS-1)<< (32-LOG2_PAGE_SIZE)));
             //random_ppage |= (cpu<<(32-LOG2_PAGE_SIZE)); 
@@ -506,7 +508,9 @@ int main(int argc, char** argv)
 	sigIntHandler.sa_flags = 0;
 	sigaction(SIGINT, &sigIntHandler, NULL);
 
-    cout << endl << "*** ChampSim Multicore Out-of-Order Simulator ***" << endl << endl;
+    cout << endl << "*** ChampSim-IISc Multicore Out-of-Order Simulator ***" << endl << endl;
+    cout << endl << "*** Adapted By: Akash Maji  (akashmaji@iisc.ac.in) ***" << endl << endl;
+
 
     // initialize knobs
     uint8_t show_heartbeat = 1;
@@ -566,12 +570,14 @@ int main(int argc, char** argv)
     }
 
     // consequences of knobs
-    cout << "Warmup Instructions: " << warmup_instructions << endl;
-    cout << "Simulation Instructions: " << simulation_instructions << endl;
+    cout << "--------------------------------------------------------------" << endl;
+    cout << "Warmup Instructions               : " << warmup_instructions << endl;
+    cout << "Simulation Instructions           : " << simulation_instructions << endl;
     //cout << "Scramble Loads: " << (knob_scramble_loads ? "ture" : "false") << endl;
-    cout << "Number of CPUs: " << NUM_CPUS << endl;
-    cout << "LLC sets: " << LLC_SET << endl;
-    cout << "LLC ways: " << LLC_WAY << endl;
+    cout << "Number of CPUs                    : " << NUM_CPUS << endl;
+    cout << "LLC sets                          : " << LLC_SET << endl;
+    cout << "LLC ways                          : " << LLC_WAY << endl;
+    cout << "--------------------------------------------------------------" << endl;
 
     if (knob_low_bandwidth)
         DRAM_MTPS = DRAM_IO_FREQ/4;
@@ -590,17 +596,18 @@ int main(int argc, char** argv)
 
     printf("Off-chip DRAM Size: %u MB Channels: %u Width: %u-bit Data Rate: %u MT/s\n",
             DRAM_SIZE, DRAM_CHANNELS, 8*DRAM_CHANNEL_WIDTH, DRAM_MTPS);
+    
 
     // end consequence of knobs
 
     // search through the argv for "-traces"
-    int found_traces = 0;
+    int found_traces = 0;cout << "--------------------------------------------------------------" << endl;
     int count_traces = 0;
     cout << endl;
     for (int i=0; i<argc; i++) {
         if (found_traces)
         {
-            printf("CPU %d runs %s\n", count_traces, argv[i]);
+            printf("CPU: %d runs ==>  %s\n", count_traces, argv[i]);
 
             sprintf(ooo_cpu[count_traces].trace_string, "%s", argv[i]);
 
@@ -638,7 +645,7 @@ int main(int argc, char** argv)
             else if (last_dot[1] == 'x') // xz
                 decomp_program = "xz";
             else {
-                std::cout << "ChampSim does not support traces other than gz or xz compression!" << std::endl;
+                std::cout << "ChampSim-IISc does not support traces other than gz or xz compression!" << std::endl;
                 assert(0);
             }
 
@@ -921,12 +928,13 @@ int main(int argc, char** argv)
     elapsed_minute -= elapsed_hour*60;
     elapsed_second -= (elapsed_hour*3600 + elapsed_minute*60);
     
-    cout << endl << "ChampSim completed all CPUs" << endl;
+    cout << endl << "ChampSim-IISc completed all CPUs" << endl;
     if (NUM_CPUS > 1) {
         cout << endl << "Total Simulation Statistics (not including warmup)" << endl;
+        cout << endl << "==================================================" << endl;
         for (uint32_t i=0; i<NUM_CPUS; i++) {
-            cout << endl << "CPU " << i << " cumulative IPC: " << (float) (ooo_cpu[i].num_retired - ooo_cpu[i].begin_sim_instr) / (current_core_cycle[i] - ooo_cpu[i].begin_sim_cycle); 
-            cout << " instructions: " << ooo_cpu[i].num_retired - ooo_cpu[i].begin_sim_instr << " cycles: " << current_core_cycle[i] - ooo_cpu[i].begin_sim_cycle << endl;
+            cout << endl << "CPU " << i << "\nCumulative IPC: " << (float) (ooo_cpu[i].num_retired - ooo_cpu[i].begin_sim_instr) / (current_core_cycle[i] - ooo_cpu[i].begin_sim_cycle); 
+            cout << "\nInstructions: " << ooo_cpu[i].num_retired - ooo_cpu[i].begin_sim_instr << "\nCycles: " << current_core_cycle[i] - ooo_cpu[i].begin_sim_cycle << endl;
 #ifndef CRC2_COMPILE
             print_sim_stats(i, &ooo_cpu[i].L1D);
             print_sim_stats(i, &ooo_cpu[i].L1I);
@@ -941,16 +949,19 @@ int main(int argc, char** argv)
     }
 
     cout << endl << "Region of Interest Statistics" << endl;
+    cout << "**********************************************" << endl;
     for (uint32_t i=0; i<NUM_CPUS; i++) {
-        cout << endl << "CPU " << i << " cumulative IPC: " << ((float) ooo_cpu[i].finish_sim_instr / ooo_cpu[i].finish_sim_cycle); 
-        cout << " instructions: " << ooo_cpu[i].finish_sim_instr << " cycles: " << ooo_cpu[i].finish_sim_cycle << endl;
+        cout << "---------------------------------" << endl;
+        cout << endl << "CPU " << i << ":\nCumulative IPC: " << ((float) ooo_cpu[i].finish_sim_instr / ooo_cpu[i].finish_sim_cycle); 
+        cout << "\nInstructions: " << ooo_cpu[i].finish_sim_instr << "\nCycles: " << ooo_cpu[i].finish_sim_cycle << endl;
+        cout << "---------------------------------" << endl;
 #ifndef CRC2_COMPILE
         print_roi_stats(i, &ooo_cpu[i].L1D);
         print_roi_stats(i, &ooo_cpu[i].L1I);
         print_roi_stats(i, &ooo_cpu[i].L2C);
 #endif
         print_roi_stats(i, &uncore.LLC);
-        cout << "Major fault: " << major_fault[i] << " Minor fault: " << minor_fault[i] << endl;
+        cout << "Major fault: " << major_fault[i] << "\nMinor fault: " << minor_fault[i] << endl;
     }
 
     for (uint32_t i=0; i<NUM_CPUS; i++) {
