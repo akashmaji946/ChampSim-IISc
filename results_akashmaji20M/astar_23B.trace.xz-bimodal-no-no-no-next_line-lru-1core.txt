@@ -1,77 +1,76 @@
 
 *** ChampSim Multicore Out-of-Order Simulator ***
 
-Warmup Instructions: 10000000
+Warmup Instructions: 1000000
 Simulation Instructions: 20000000
 Number of CPUs: 1
 LLC sets: 2048
 LLC ways: 16
 Off-chip DRAM Size: 4096 MB Channels: 1 Width: 64-bit Data Rate: 3200 MT/s
 
-CPU 0 runs /home/akash/Desktop/HPCA/ques2/ChampSim-IISc/dpc3_traces/astar_23B.trace.xz
+CPU 0 runs /home/akash/Desktop/HPCA/ChampSim-IISc/dpc3_traces/astar_23B.trace.xz
 CPU 0 Bimodal branch predictor
 LLC Next Line Prefetcher
-Heartbeat CPU 0 instructions: 10000001 cycles: 3400570 heartbeat IPC: 2.94068 cumulative IPC: 2.94068 (Simulation time: 0 hr 0 min 13 sec) 
 
-Warmup complete CPU 0 instructions: 10000001 cycles: 3400570 (Simulation time: 0 hr 0 min 13 sec) 
+Warmup complete CPU 0 instructions: 1000003 cycles: 339315 (Simulation time: 0 hr 0 min 1 sec) 
 
-Heartbeat CPU 0 instructions: 20000002 cycles: 28874853 heartbeat IPC: 0.392553 cumulative IPC: 0.392553 (Simulation time: 0 hr 0 min 22 sec) 
-Heartbeat CPU 0 instructions: 30000000 cycles: 61279320 heartbeat IPC: 0.308599 cumulative IPC: 0.34555 (Simulation time: 0 hr 0 min 32 sec) 
-Finished CPU 0 instructions: 20000000 cycles: 57878757 cumulative IPC: 0.34555 (Simulation time: 0 hr 0 min 32 sec) 
+Heartbeat CPU 0 instructions: 10000000 cycles: 22575507 heartbeat IPC: 0.442958 cumulative IPC: 0.404745 (Simulation time: 0 hr 0 min 11 sec) 
+Heartbeat CPU 0 instructions: 20000002 cycles: 48043316 heartbeat IPC: 0.392653 cumulative IPC: 0.398289 (Simulation time: 0 hr 0 min 21 sec) 
+Finished CPU 0 instructions: 20000001 cycles: 50319363 cumulative IPC: 0.397461 (Simulation time: 0 hr 0 min 22 sec) 
 
 ChampSim completed all CPUs
 
 Region of Interest Statistics
 
-CPU 0 cumulative IPC: 0.34555 instructions: 20000000 cycles: 57878757
-L1D TOTAL     ACCESS:    5306193  HIT:    4724034  MISS:     582159
-L1D LOAD      ACCESS:    4447786  HIT:    3873873  MISS:     573913
-L1D RFO       ACCESS:     858407  HIT:     850161  MISS:       8246
+CPU 0 cumulative IPC: 0.397461 instructions: 20000001 cycles: 50319363
+L1D TOTAL     ACCESS:    5301091  HIT:    4741699  MISS:     559392
+L1D LOAD      ACCESS:    4442790  HIT:    3890009  MISS:     552781
+L1D RFO       ACCESS:     858301  HIT:     851690  MISS:       6611
 L1D PREFETCH  ACCESS:          0  HIT:          0  MISS:          0
 L1D WRITEBACK ACCESS:          0  HIT:          0  MISS:          0
 L1D PREFETCH  REQUESTED:          0  ISSUED:          0  USEFUL:          0  USELESS:          0
-L1D AVERAGE MISS LATENCY: 36.3488 cycles
-L1I TOTAL     ACCESS:    3826091  HIT:    3826091  MISS:          0
-L1I LOAD      ACCESS:    3826091  HIT:    3826091  MISS:          0
+L1D AVERAGE MISS LATENCY: 33.8184 cycles
+L1I TOTAL     ACCESS:    3826763  HIT:    3826763  MISS:          0
+L1I LOAD      ACCESS:    3826763  HIT:    3826763  MISS:          0
 L1I RFO       ACCESS:          0  HIT:          0  MISS:          0
 L1I PREFETCH  ACCESS:          0  HIT:          0  MISS:          0
 L1I WRITEBACK ACCESS:          0  HIT:          0  MISS:          0
 L1I PREFETCH  REQUESTED:          0  ISSUED:          0  USEFUL:          0  USELESS:          0
 L1I AVERAGE MISS LATENCY: -nan cycles
-L2C TOTAL     ACCESS:     773459  HIT:     570867  MISS:     202592
-L2C LOAD      ACCESS:     573908  HIT:     372434  MISS:     201474
-L2C RFO       ACCESS:       8246  HIT:       7144  MISS:       1102
+L2C TOTAL     ACCESS:     744204  HIT:     553338  MISS:     190866
+L2C LOAD      ACCESS:     552774  HIT:     362819  MISS:     189955
+L2C RFO       ACCESS:       6611  HIT:       5716  MISS:        895
 L2C PREFETCH  ACCESS:          0  HIT:          0  MISS:          0
-L2C WRITEBACK ACCESS:     191305  HIT:     191289  MISS:         16
+L2C WRITEBACK ACCESS:     184819  HIT:     184803  MISS:         16
 L2C PREFETCH  REQUESTED:          0  ISSUED:          0  USEFUL:          0  USELESS:          0
-L2C AVERAGE MISS LATENCY: 54.017 cycles
-LLC TOTAL     ACCESS:     473387  HIT:     421244  MISS:      52143
-LLC LOAD      ACCESS:     201470  HIT:     172403  MISS:      29067
-LLC RFO       ACCESS:       1102  HIT:       1041  MISS:         61
-LLC PREFETCH  ACCESS:     196008  HIT:     173077  MISS:      22931
-LLC WRITEBACK ACCESS:      74807  HIT:      74723  MISS:         84
-LLC PREFETCH  REQUESTED:     201470  ISSUED:     196155  USEFUL:      17236  USELESS:       5018
-LLC AVERAGE MISS LATENCY: 158.666 cycles
-Major fault: 0 Minor fault: 3679
+L2C AVERAGE MISS LATENCY: 52.3131 cycles
+LLC TOTAL     ACCESS:     441476  HIT:     389608  MISS:      51868
+LLC LOAD      ACCESS:     189954  HIT:     161924  MISS:      28030
+LLC RFO       ACCESS:        895  HIT:        846  MISS:         49
+LLC PREFETCH  ACCESS:     180820  HIT:     157127  MISS:      23693
+LLC WRITEBACK ACCESS:      69807  HIT:      69711  MISS:         96
+LLC PREFETCH  REQUESTED:     189954  ISSUED:     180948  USEFUL:      17895  USELESS:       3833
+LLC AVERAGE MISS LATENCY: 151.187 cycles
+Major fault: 0 Minor fault: 3315
 LLC Next Line Prefetcher Final Stats: none
 
 DRAM Statistics
  CHANNEL 0
- RQ ROW_BUFFER_HIT:      10627  ROW_BUFFER_MISS:      41432
- DBUS_CONGESTED:       3772
- WQ ROW_BUFFER_HIT:       1317  ROW_BUFFER_MISS:      21983  FULL:          0
+ RQ ROW_BUFFER_HIT:      14604  ROW_BUFFER_MISS:      37168
+ DBUS_CONGESTED:       2865
+ WQ ROW_BUFFER_HIT:        782  ROW_BUFFER_MISS:      13742  FULL:          0
 
  AVG_CONGESTED_CYCLE: 5
 
-CPU 0 Branch Prediction Accuracy: 72.1364% MPKI: 53.1692 Average ROB Occupancy at Mispredict: 4.5809
+CPU 0 Branch Prediction Accuracy: 72.0586% MPKI: 53.3277 Average ROB Occupancy at Mispredict: 4.59927
 
 Branch types
-NOT_BRANCH: 16183227 80.9161%
-BRANCH_DIRECT_JUMP: 159 0.000795%
+NOT_BRANCH: 16182527 80.9126%
+BRANCH_DIRECT_JUMP: 199 0.000995%
 BRANCH_INDIRECT: 0 0%
-BRANCH_CONDITIONAL: 3815600 19.078%
-BRANCH_DIRECT_CALL: 318 0.00159%
+BRANCH_CONDITIONAL: 3816119 19.0806%
+BRANCH_DIRECT_CALL: 397 0.001985%
 BRANCH_INDIRECT_CALL: 0 0%
-BRANCH_RETURN: 318 0.00159%
+BRANCH_RETURN: 397 0.001985%
 BRANCH_OTHER: 0 0%
 

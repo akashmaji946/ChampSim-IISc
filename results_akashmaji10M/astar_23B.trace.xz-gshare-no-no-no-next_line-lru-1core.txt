@@ -8,14 +8,14 @@ LLC sets: 2048
 LLC ways: 16
 Off-chip DRAM Size: 4096 MB Channels: 1 Width: 64-bit Data Rate: 3200 MT/s
 
-CPU 0 runs /home/akash/Desktop/HPCA/ques2/ChampSim-IISc/dpc3_traces/astar_23B.trace.xz
+CPU 0 runs /home/akash/Desktop/HPCA/ChampSim-IISc/dpc3_traces/astar_23B.trace.xz
 CPU 0 GSHARE branch predictor
 LLC Next Line Prefetcher
 
-Warmup complete CPU 0 instructions: 1000003 cycles: 339316 (Simulation time: 0 hr 0 min 1 sec) 
+Warmup complete CPU 0 instructions: 1000003 cycles: 339316 (Simulation time: 0 hr 0 min 2 sec) 
 
-Heartbeat CPU 0 instructions: 10000000 cycles: 19115862 heartbeat IPC: 0.523126 cumulative IPC: 0.479321 (Simulation time: 0 hr 0 min 10 sec) 
-Finished CPU 0 instructions: 10000001 cycles: 21250515 cumulative IPC: 0.470577 (Simulation time: 0 hr 0 min 11 sec) 
+Heartbeat CPU 0 instructions: 10000000 cycles: 19115862 heartbeat IPC: 0.523126 cumulative IPC: 0.479321 (Simulation time: 0 hr 0 min 13 sec) 
+Finished CPU 0 instructions: 10000001 cycles: 21250515 cumulative IPC: 0.470577 (Simulation time: 0 hr 0 min 14 sec) 
 
 ChampSim completed all CPUs
 

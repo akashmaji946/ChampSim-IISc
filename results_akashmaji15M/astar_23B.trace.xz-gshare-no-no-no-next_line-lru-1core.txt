@@ -14,8 +14,8 @@ LLC Next Line Prefetcher
 
 Warmup complete CPU 0 instructions: 1000003 cycles: 339316 (Simulation time: 0 hr 0 min 1 sec) 
 
-Heartbeat CPU 0 instructions: 10000000 cycles: 19115862 heartbeat IPC: 0.523126 cumulative IPC: 0.479321 (Simulation time: 0 hr 0 min 10 sec) 
-Finished CPU 0 instructions: 15000003 cycles: 32143329 cumulative IPC: 0.46666 (Simulation time: 0 hr 0 min 15 sec) 
+Heartbeat CPU 0 instructions: 10000000 cycles: 19115862 heartbeat IPC: 0.523126 cumulative IPC: 0.479321 (Simulation time: 0 hr 0 min 11 sec) 
+Finished CPU 0 instructions: 15000003 cycles: 32143329 cumulative IPC: 0.46666 (Simulation time: 0 hr 0 min 18 sec) 
 
 ChampSim completed all CPUs
 
