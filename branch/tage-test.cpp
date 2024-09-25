@@ -1,3 +1,12 @@
+/*
+Original Credits: (Thanks for making it publicly available!)
+https://github.com/Hiren6/TAGE-Branch-Predictor
+
+Adapted By:
+Akash Maji (akashmaji@iisc.ac.in)
+https://github.com/akashmaji946/ChampSim-IISc
+*/
+
 #include "ooo_cpu.h"
 #include <bitset>
 
@@ -91,9 +100,11 @@ uint32_t bimodalIndex;
 // Global TAGE tables.
 global_t tage[NUM_CPUS][NUM_TABLES][1 << TAGE_BITS];///////array of 12 tage tables(each table is an global_t array)
 uint32_t tage_len = (1 << TAGE_BITS);
-// Global history lengths according to the paper
+
+
+// Global history lengths according to the adjustment by me
 uint32_t history_length[NUM_TABLES]={640, 512, 256, 128, 64, 64, 32, 24, 16, 8, 6, 4};
-// Global tag lengths according to the paper
+// Global tag lengths according to the adjustment by me
 uint32_t tag_width[NUM_TABLES]={19, 17, 15, 15, 13, 13, 11, 11, 9, 9, 7, 7};
 
 // Aid to history folding.

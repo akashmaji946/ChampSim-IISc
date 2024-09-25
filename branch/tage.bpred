@@ -1,3 +1,12 @@
+/*
+Original Credits: (Thanks for making it publicly available!)
+https://github.com/Hiren6/TAGE-Branch-Predictor
+
+Adapted By:
+Akash Maji (akashmaji@iisc.ac.in)
+https://github.com/akashmaji946/ChampSim-IISc
+*/
+
 #include "ooo_cpu.h"
 #include <bitset>
 
@@ -60,6 +69,29 @@ unsigned long long phist; // Path History of 32 bits
 prediction_t pred;///NUM_CPUS??
 uint32_t use_alt; // Global 4 bit counter to check whether to use alternate prediction or not.
      
+/*
+Storage Budget Justifiction:
+---------------------------
+We are using 12 TAGE tables with entry sizes as:
+[24, 22, 20, 20, 18, 18, 16, 16, 14, 14, 12, 12]
+as the tag_width are:
+[19, 17, 15, 15, 13, 13, 11, 11, 9, 9, 7, 7]
+and 5 bits for 'ctr' and 'u' fields
+
+There are 2^11 entries in each TAGE table. TAGE_BITS=11
+So TAGE Tables Size = (sum[24, 22, 20, 20, 18, 18, 16, 16, 14, 14, 12, 12] bits * 2^11)
+                    = 206 bits * 2048
+                    = 52 KB
+
+Bimodal Table Size = 2^13 entries each of 2 bits
+                   = 2 ^ 14 bits
+                   = 2 ^ 11 B
+                   = 4 KB
+
+Total Size = 52 + 4 KB = 56 KB which is withing 64 KB budget
+
+*/
+
 // Bimodal Table. Indexed by PC.
 uint32_t bimodal_len=(1 << BIMODAL_BITS);///change
 bimodal_t bimodal[NUM_CPUS][(1 << BIMODAL_BITS)];///change
@@ -68,9 +100,11 @@ uint32_t bimodalIndex;
 // Global TAGE tables.
 global_t tage[NUM_CPUS][NUM_TABLES][1 << TAGE_BITS];///////array of 12 tage tables(each table is an global_t array)
 uint32_t tage_len = (1 << TAGE_BITS);
-// Global history lengths according to the paper
+
+
+// Global history lengths according to the adjustment by me
 uint32_t history_length[NUM_TABLES]={640, 512, 256, 128, 64, 64, 32, 24, 16, 8, 6, 4};
-// Global tag lengths according to the paper
+// Global tag lengths according to the adjustment by me
 uint32_t tag_width[NUM_TABLES]={19, 17, 15, 15, 13, 13, 11, 11, 9, 9, 7, 7};
 
 // Aid to history folding.

@@ -1,6 +1,16 @@
 #include "ooo_cpu.h"
 
 /*
+Original Credits: (Thanks for making it publicly available!)
+https://github.com/casperIITB/ChampSim
+https://github.com/ChampSim/ChampSim
+
+Adapted By:
+Akash Maji (akashmaji@iisc.ac.in)
+https://github.com/akashmaji946/ChampSim-IISc
+*/
+
+/*
 -------------------
 Storage Cost Estimation:
 -------------------

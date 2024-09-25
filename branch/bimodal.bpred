@@ -1,6 +1,16 @@
 #include "ooo_cpu.h"
 
 /*
+Original Credits: (Thanks for making it publicly available!)
+https://github.com/casperIITB/ChampSim
+https://github.com/ChampSim/ChampSim
+
+Adapted By:
+Akash Maji (akashmaji@iisc.ac.in)
+https://github.com/akashmaji946/ChampSim-IISc
+*/
+
+/*
 -------------------
 Storage Cost Estimation:
 -------------------
@@ -43,12 +53,3 @@ void O3_CPU::last_branch_result(uint64_t ip, uint8_t taken)
     else if ((taken == 0) && (bimodal_table[cpu][hash] > 0))
         bimodal_table[cpu][hash]--;
 }
-
-/*
-Build as:
-./build_champsim_iisc.sh bimodal  no no no next_line lru 1
-
-Run as:
-./run_champsim_iisc.sh bimodal-no-no-no-next_line-lru-1core 10 20 astar_23B.trace.xz
-
-*/
