@@ -1,6 +1,6 @@
 <p align="center">
   <h1 align="center"> ChampSim-IISc <br></h1>
-  <h5>(https://github.com/akashmaji946/ChampSim-IISc is forked from https://github.com/casperIITB/ChampSim with original credits to https://github.com/ChampSim/ChampSim)</h5>
+  <h5>(https://github.com/akashmaji946/ChampSim-IISc is forked from https://github.com/casperIITB/ChampSim with original credits to https://github.com/ChampSim/ChampSim. This is a publicly available free to  use repository for simulation and architectural studies.)</h5>
   <p> ChampSim is a trace-based simulator for a microarchitecture study. <br>You can sign up to the public mailing list by sending an empty mail to champsim+subscribe@googlegroups.com. <br>Traces for the 3rd Data Prefetching Championship (DPC-3) can be found from here (https://dpc3.compas.cs.stonybrook.edu/?SW_IS). <br>A set of traces used for the 2nd Cache Replacement Championship (CRC-2) can be found from this link. (http://bit.ly/2t2nkUj) <p>
 </p>
 
