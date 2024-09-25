@@ -4,12 +4,12 @@
   <p> ChampSim is a trace-based simulator for a microarchitecture study. <br>You can sign up to the public mailing list by sending an empty mail to champsim+subscribe@googlegroups.com. <br>Traces for the 3rd Data Prefetching Championship (DPC-3) can be found from here (https://dpc3.compas.cs.stonybrook.edu/?SW_IS). <br>A set of traces used for the 2nd Cache Replacement Championship (CRC-2) can be found from this link. (http://bit.ly/2t2nkUj) <p>
 </p>
 
-# Clone ChampSim-IISc repository
+## Clone ChampSim-IISc repository
 ```
 git clone https://github.com/akashmaji946/ChampSim-IISc.git
 ```
 
-# Compile
+## Compile
 
 ChampSim-IISc takes seven parameters: <br>Branch predictor, L1I prefetcher, L1D prefetcher, L2C prefetcher, LLC prefetcher, LLC replacement policy, and the number of cores. 
 <br>For example, `./build_champsim_iisc.sh bimodal no no no next_line lru 1` builds a single-core processor with bimodal branch predictor, no L1 instruction prefetcher, no L1/L2 data prefetchers, ip-stride LLC prefetcher and the baseline LRU replacement policy for the LLC.
@@ -28,7 +28,7 @@ $ cd scripts
 $ ./download_dpc3_traces.sh
 ```
 
-# Run simulation
+## Run simulation
 
 Execute `run_champsim_iisc.sh` with proper input arguments. The default `TRACE_DIR` in `run_champsim.sh` is set to `$PWD/dpc3_traces`. <br>
 
@@ -55,7 +55,7 @@ $ ./run_4core_iisc.sh bimodal-no-no-no-next_line-lru-4core 1 10 0 600.perlbench_
 Note that we need to specify multiple trace files for `run_4core.sh`. `N_MIX` is used to represent a unique ID for mixed multi-programmed workloads. 
 
 
-# Add your own branch predictor, data prefetchers, and replacement policy
+## Add your own branch predictor, data prefetchers, and replacement policy
 **Copy an empty template**
 ```
 $ cp branch/branch_predictor.cc branch/mybranch.bpred
