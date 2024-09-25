@@ -56,19 +56,32 @@
  */
 
 /*
-Adapted by: akashmaji@iisc.ac.in
+Adapted by: Akash Maji : akashmaji@iisc.ac.in
 */
+/*
+Storage Cost Estimation:
+-----------------------
+Each perceptron has N=32 weights and each weight takes 8 bits
+Each perceptron is thus 32 Bytes
+We have a table of NUM_PERCEPTRONS=2048 perceptrons
+Perceptron Table Size = 2048*32 Bytes = 64 KB
 
+Update Table Entry Size = 8 B (at max) [i.e.  32 + 1 + 1 + 11 = 6 B]
+Update Table Size = 256 * 6 B < 2 KB
+
+Total Size Taken is  within 64+2 KB
+
+*/
 
 #include "ooo_cpu.h"
 
 /* history length for the global history shift register */
 
-#define PERCEPTRON_HISTORY	48
+#define PERCEPTRON_HISTORY	32
 
 /* number of perceptrons */
 
-#define NUM_PERCEPTRONS		2680
+#define NUM_PERCEPTRONS		2048
 
 /* number of bits per weight */
 
@@ -85,7 +98,7 @@ Adapted by: akashmaji@iisc.ac.in
 
 /* size of buffer for keeping 'perceptron_state' for update */
 
-#define NUM_UPDATE_ENTRIES	100
+#define NUM_UPDATE_ENTRIES	256
 
 /* perceptron data structure */
 
