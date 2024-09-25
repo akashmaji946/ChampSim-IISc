@@ -1,7 +1,15 @@
 #!/bin/bash
 
-# adapted by Akash Maji, IISc Bangalore
-# reach: akashmaji@iisc.ac.in
+# /*
+# Original Credits: (Thanks for making it publicly available!)
+# https://github.com/casperIITB/ChampSim
+# https://github.com/ChampSim/ChampSim
+
+# Adapted By:
+# Akash Maji (akashmaji@iisc.ac.in)
+# https://github.com/akashmaji946/ChampSim-IISc
+# */
+
 
 if [ "$#" -lt 4 ]; then
     echo "Illegal number of parameters. Choose 4."

@@ -1,6 +1,6 @@
 <p align="center">
   <h1 align="center"> ChampSim-IISc <br><h3>(forked from https://github.com/casperIITB/ChampSim)</h3></h1>
-  <p> ChampSim is a trace-based simulator for a microarchitecture study. You can sign up to the public mailing list by sending an empty mail to champsim+subscribe@googlegroups.com. Traces for the 3rd Data Prefetching Championship (DPC-3) can be found from here (https://dpc3.compas.cs.stonybrook.edu/?SW_IS). A set of traces used for the 2nd Cache Replacement Championship (CRC-2) can be found from this link. (http://bit.ly/2t2nkUj) <p>
+  <p> ChampSim is a trace-based simulator for a microarchitecture study. <br>You can sign up to the public mailing list by sending an empty mail to champsim+subscribe@googlegroups.com. <br>Traces for the 3rd Data Prefetching Championship (DPC-3) can be found from here (https://dpc3.compas.cs.stonybrook.edu/?SW_IS). <br>A set of traces used for the 2nd Cache Replacement Championship (CRC-2) can be found from this link. (http://bit.ly/2t2nkUj) <p>
 </p>
 
 # Clone ChampSim-IISc repository
@@ -10,8 +10,8 @@ git clone https://github.com/akashmaji946/ChampSim-IISc.git
 
 # Compile
 
-ChampSim takes seven parameters: Branch predictor, L1I prefetcher, L1D prefetcher, L2C prefetcher, LLC prefetcher, LLC replacement policy, and the number of cores. 
-For example, `./build_champsim_iisc.sh bimodal no no no next_line lru 1` builds a single-core processor with bimodal branch predictor, no L1 instruction prefetcher, no L1/L2 data prefetchers, ip-stride LLC prefetcher and the baseline LRU replacement policy for the LLC.
+ChampSim-IISc takes seven parameters: <br>Branch predictor, L1I prefetcher, L1D prefetcher, L2C prefetcher, LLC prefetcher, LLC replacement policy, and the number of cores. 
+<br>For example, `./build_champsim_iisc.sh bimodal no no no next_line lru 1` builds a single-core processor with bimodal branch predictor, no L1 instruction prefetcher, no L1/L2 data prefetchers, ip-stride LLC prefetcher and the baseline LRU replacement policy for the LLC.
 ```
 $ ./build_champsim_iisc.sh bimodal no no no next_line lru 1
 
@@ -86,4 +86,4 @@ $ ./run_champsim_iisc.sh mybranch-myperf-mypref-mypref-mypref-myrepl-1core 1 10 
 ChampSim measures the IPC (Instruction Per Cycle) value as a performance metric. <br>
 There are some other useful metrics printed out at the end of simulation. <br>
 
-Good luck and be a champion! <br>
+Good luck and be a ChampSim-IISc-Champion! <br>
