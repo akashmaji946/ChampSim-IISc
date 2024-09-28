@@ -54,5 +54,31 @@ if [ ! -f "$TRACE_DIR/$TRACE" ] ; then
     exit 1
 fi
 
-mkdir -p results_akashmaji${N_SIM}M
-(./bin/${BINARY} -warmup_instructions ${N_WARM}000000 -simulation_instructions ${N_SIM}000000 -c -traces ${TRACE_DIR}/${TRACE}) &> results_akashmaji${N_SIM}M/${TRACE}-${BINARY}${OPTION}.txt
+mkdir -p results_cloudsuite_akashmaji${N_SIM}M
+(./bin/${BINARY} -warmup_instructions ${N_WARM}000000 -simulation_instructions ${N_SIM}000000 -c -traces ${TRACE_DIR}/${TRACE}) &> results_cloudsuite_akashmaji${N_SIM}M/${TRACE}-${BINARY}${OPTION}.txt
+
+# Build 4 predictors as:
+# ./build_champsim_iisc.sh bimodal no no no next_line lru 1
+# ./build_champsim_iisc.sh gshare no no no next_line lru 1
+# ./build_champsim_iisc.sh perceptron no no no next_line lru 1
+# ./build_champsim_iisc.sh tage no no no next_line lru 1
+
+# Run 3 traces with bimodal
+# sudo ./run_cloudsuite_iisc.sh bimodal-no-no-no-next_line-lru-1core 10 500 trace1.xz
+# sudo ./run_cloudsuite_iisc.sh bimodal-no-no-no-next_line-lru-1core 10 500 trace2.xz
+# sudo ./run_cloudsuite_iisc.sh bimodal-no-no-no-next_line-lru-1core 10 500 trace3.xz
+
+# Run 3 traces with gshare
+# sudo ./run_cloudsuite_iisc.sh gshare-no-no-no-next_line-lru-1core 10 500 trace1.xz
+# sudo ./run_cloudsuite_iisc.sh gshare-no-no-no-next_line-lru-1core 10 500 trace2.xz
+# sudo ./run_cloudsuite_iisc.sh gshare-no-no-no-next_line-lru-1core 10 500 trace3.xz
+
+# Run 3 traces with perceptron
+# sudo ./run_cloudsuite_iisc.sh perceptron-no-no-no-next_line-lru-1core 10 500 trace1.xz
+# sudo ./run_cloudsuite_iisc.sh perceptron-no-no-no-next_line-lru-1core 10 500 trace2.xz
+# sudo ./run_cloudsuite_iisc.sh perceptron-no-no-no-next_line-lru-1core 10 500 trace3.xz
+
+# Run 3 traces with tage
+# sudo ./run_cloudsuite_iisc.sh tage-no-no-no-next_line-lru-1core 10 500 trace1.xz
+# sudo ./run_cloudsuite_iisc.sh tage-no-no-no-next_line-lru-1core 10 500 trace2.xz
+# sudo ./run_cloudsuite_iisc.sh tage-no-no-no-next_line-lru-1core 10 500 trace3.xz
