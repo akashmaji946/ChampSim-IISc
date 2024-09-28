@@ -13,7 +13,7 @@
 
 if [ "$#" -lt 4 ]; then
     echo "Illegal number of parameters. Choose 4."
-    echo "Usage: ./run_champsim_iisc.sh [BINARY] [N_WARM] [N_SIM] [TRACE] [OPTION]"
+    echo "Usage: ./run_cloudsuite_iisc.sh [BINARY] [N_WARM] [N_SIM] [TRACE] [OPTION]"
     exit 1
 fi
 
@@ -55,4 +55,4 @@ if [ ! -f "$TRACE_DIR/$TRACE" ] ; then
 fi
 
 mkdir -p results_akashmaji${N_SIM}M
-(./bin/${BINARY} -warmup_instructions ${N_WARM}000000 -simulation_instructions ${N_SIM}000000 ${OPTION} -traces ${TRACE_DIR}/${TRACE}) &> results_akashmaji${N_SIM}M/${TRACE}-${BINARY}${OPTION}.txt
+(./bin/${BINARY} -warmup_instructions ${N_WARM}000000 -simulation_instructions ${N_SIM}000000 -c -traces ${TRACE_DIR}/${TRACE}) &> results_akashmaji${N_SIM}M/${TRACE}-${BINARY}${OPTION}.txt
