@@ -65,7 +65,7 @@ Number of entries = 48 * 8 K bits / 2 bits
 #define GLOBAL_HISTORY_MASK (1 << GLOBAL_HISTORY_LENGTH) - 1
 int branch_history_vector[NUM_CPUS];
 
-#define GS_HISTORY_TABLE_SIZE 131072
+#define GS_HISTORY_TABLE_SIZE 262144
 int gs_history_table[NUM_CPUS][GS_HISTORY_TABLE_SIZE];
 int my_last_prediction[NUM_CPUS];
 
@@ -86,7 +86,7 @@ Total Tables Size = (16*2^11 + 17*2^11 + 18*2^11 + 18*2^10) bits
                   = 32Kb + 34Kb + 36Kb + 18Kb
                   = 120 Kb
                   = 15 KB
-Bimodal Table Size = 4192 * 2 bits
+Bimodal Table Size = 4096 * 2 bits
                    = 2 ^ 13 bits
                    = 1 KB
 Total TAGE Size = 16KB
@@ -126,9 +126,9 @@ Total TAGE Size = 47KB
 #define Index uint16_t
 #define Path uint64_t
 #define History uint64_t
-#define TAGE_BIMODAL_TABLE_SIZE 8192
+#define TAGE_BIMODAL_TABLE_SIZE 4096
 #define TAGE_MAX_INDEX_BITS 14
-#define TAGE_NUM_COMPONENTS 6 // There are 8 TAGE tables 
+#define TAGE_NUM_COMPONENTS 4 // There are 8 TAGE tables 
 #define TAGE_BASE_COUNTER_BITS 2
 #define TAGE_COUNTER_BITS 3
 #define TAGE_USEFUL_BITS 2
@@ -138,8 +138,8 @@ Total TAGE Size = 47KB
 #define TAGE_HISTORY_ALPHA 1.6
 #define TAGE_RESET_USEFUL_INTERVAL 512000
 
-const uint8_t TAGE_INDEX_BITS[TAGE_NUM_COMPONENTS] = {12, 12, 11, 11, 11, 10};
-const uint8_t TAGE_TAG_BITS[TAGE_NUM_COMPONENTS] = {9, 10, 11, 12, 13, 14};
+const uint8_t TAGE_INDEX_BITS[TAGE_NUM_COMPONENTS] = {11, 11, 11, 10};
+const uint8_t TAGE_TAG_BITS[TAGE_NUM_COMPONENTS] = {11, 12, 13, 14};
 
 
 // TAGE START //
