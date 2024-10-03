@@ -17,12 +17,13 @@ Storage Cost Estimation:
 We want to have at most 64KB for our bimodal predictor per CPU
 We will use 2-bit saturating counter
 So entry size = 2 bits
-Number of entries = 64 * 8 K bits / 2 bits
+Number of entries = 64K Bytes / 2 bits
+                  = 64 * 8 K bits / 2 bits
                   = 256 K
                   = 262144
 Largest prime less than 262144 = 262139
-
 */
+
 #define BIMODAL_TABLE_SIZE 262144
 #define BIMODAL_PRIME 262139
 #define MAX_COUNTER 3

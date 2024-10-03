@@ -103,7 +103,7 @@ uint32_t tage_len = (1 << TAGE_BITS);
 
 
 // Global history lengths according to the adjustment by me
-uint32_t history_length[NUM_TABLES]={640, 512, 256, 128, 64, 64, 32, 24, 16, 8, 6, 4};
+uint32_t history_length[NUM_TABLES]={640, 500, 400, 200, 100, 75, 50, 24, 16, 8, 6, 4};
 // Global tag lengths according to the adjustment by me
 uint32_t tag_width[NUM_TABLES]={19, 17, 15, 15, 13, 13, 11, 11, 9, 9, 7, 7};
 

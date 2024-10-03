@@ -85,3 +85,5 @@ void O3_CPU::last_branch_result(uint64_t ip, uint8_t taken)
     branch_history_vector[cpu] &= GLOBAL_HISTORY_MASK;
     branch_history_vector[cpu] |= taken;
 }
+
+
