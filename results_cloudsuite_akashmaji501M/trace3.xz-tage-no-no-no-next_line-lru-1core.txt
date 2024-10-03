@@ -1,0 +1,49 @@
+
+*** ChampSim-IISc Multicore Out-of-Order Simulator ***
+
+
+*** Adapted By: Akash Maji  (akashmaji@iisc.ac.in) ***
+
+--------------------------------------------------------------
+Warmup Instructions               : 10000000
+Simulation Instructions           : 501000000
+Number of CPUs                    : 1
+LLC sets                          : 2048
+LLC ways                          : 16
+--------------------------------------------------------------
+Off-chip DRAM Size: 4096 MB Channels: 1 Width: 64-bit Data Rate: 3200 MT/s
+--------------------------------------------------------------
+
+CPU: 0 runs ==>  /home/akash/Desktop/HPCA/ChampSim-IISc/dpc3_traces/trace3.xz
+LLC Next Line Prefetcher
+Heartbeat CPU 0 instructions: 10000003 cycles: 2688101 heartbeat IPC: 3.7201 cumulative IPC: 3.7201 (Simulation time: 0 hr 0 min 9 sec) 
+
+Warmup Complete
+--------------------------------------------------------------
+CPU 0
+Instructions: 10000003
+Cycles: 2688101
+(Simulation time: 0 hr 0 min 9 sec) 
+
+Heartbeat CPU 0 instructions: 20000000 cycles: 31309986 heartbeat IPC: 0.349383 cumulative IPC: 0.349383 (Simulation time: 0 hr 0 min 20 sec) 
+Heartbeat CPU 0 instructions: 30000001 cycles: 59592886 heartbeat IPC: 0.353571 cumulative IPC: 0.351464 (Simulation time: 0 hr 0 min 31 sec) 
+Heartbeat CPU 0 instructions: 40000002 cycles: 88260470 heartbeat IPC: 0.348826 cumulative IPC: 0.35058 (Simulation time: 0 hr 0 min 42 sec) 
+Heartbeat CPU 0 instructions: 50000003 cycles: 116625947 heartbeat IPC: 0.352541 cumulative IPC: 0.351069 (Simulation time: 0 hr 0 min 52 sec) 
+Heartbeat CPU 0 instructions: 60000002 cycles: 145462374 heartbeat IPC: 0.346784 cumulative IPC: 0.350203 (Simulation time: 0 hr 1 min 4 sec) 
+Heartbeat CPU 0 instructions: 70000002 cycles: 173707580 heartbeat IPC: 0.354042 cumulative IPC: 0.350837 (Simulation time: 0 hr 1 min 14 sec) 
+Heartbeat CPU 0 instructions: 80000002 cycles: 197789217 heartbeat IPC: 0.415254 cumulative IPC: 0.358788 (Simulation time: 0 hr 1 min 24 sec) 
+Heartbeat CPU 0 instructions: 90000000 cycles: 221456699 heartbeat IPC: 0.422521 cumulative IPC: 0.365683 (Simulation time: 0 hr 1 min 34 sec) 
+*** Reached end of trace for Core: 0 Repeating trace: /home/akash/Desktop/HPCA/ChampSim-IISc/dpc3_traces/trace3.xz
+Heartbeat CPU 0 instructions: 100000003 cycles: 244285755 heartbeat IPC: 0.438038 cumulative IPC: 0.37252 (Simulation time: 0 hr 1 min 44 sec) 
+Heartbeat CPU 0 instructions: 110000000 cycles: 272858508 heartbeat IPC: 0.349984 cumulative IPC: 0.370137 (Simulation time: 0 hr 1 min 55 sec) 
+Heartbeat CPU 0 instructions: 120000002 cycles: 301486635 heartbeat IPC: 0.349307 cumulative IPC: 0.368141 (Simulation time: 0 hr 2 min 5 sec) 
+Heartbeat CPU 0 instructions: 130000002 cycles: 329755877 heartbeat IPC: 0.353741 cumulative IPC: 0.366896 (Simulation time: 0 hr 2 min 16 sec) 
+Heartbeat CPU 0 instructions: 140000002 cycles: 358410139 heartbeat IPC: 0.348988 cumulative IPC: 0.365454 (Simulation time: 0 hr 2 min 27 sec) 
+Heartbeat CPU 0 instructions: 150000003 cycles: 386763826 heartbeat IPC: 0.352688 cumulative IPC: 0.364511 (Simulation time: 0 hr 2 min 37 sec) 
+Heartbeat CPU 0 instructions: 160000001 cycles: 415618470 heartbeat IPC: 0.346565 cumulative IPC: 0.363257 (Simulation time: 0 hr 2 min 48 sec) 
+Heartbeat CPU 0 instructions: 170000003 cycles: 443865422 heartbeat IPC: 0.354021 cumulative IPC: 0.362666 (Simulation time: 0 hr 2 min 59 sec) 
+Heartbeat CPU 0 instructions: 180000002 cycles: 467925858 heartbeat IPC: 0.41562 cumulative IPC: 0.365405 (Simulation time: 0 hr 3 min 9 sec) 
+Heartbeat CPU 0 instructions: 190000002 cycles: 491571117 heartbeat IPC: 0.422918 cumulative IPC: 0.368186 (Simulation time: 0 hr 3 min 19 sec) 
+*** Reached end of trace for Core: 0 Repeating trace: /home/akash/Desktop/HPCA/ChampSim-IISc/dpc3_traces/trace3.xz
+Heartbeat CPU 0 instructions: 200000000 cycles: 514405779 heartbeat IPC: 0.437931 cumulative IPC: 0.371298 (Simulation time: 0 hr 3 min 29 sec) 
+Caught signal: 2
