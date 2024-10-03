@@ -19,7 +19,7 @@ $ ./build_champsim_iisc.sh bimodal no no no next_line lru 1
 $ ./build_champsim_iisc.sh ${BRANCH} ${L1I_PREFETCHER} ${L1D_PREFETCHER} ${L2C_PREFETCHER} ${LLC_PREFETCHER} ${LLC_REPLACEMENT} ${NUM_CORE}
 ```
 
-## Download DPC-3 trace
+## Download DPC-3 trace or CloudSuite trace
 
 Professor Daniel Jimenez at Texas A&M University kindly provided traces for DPC-3. Use the following script to download these traces (~20GB size and max simpoint only).
 ```
@@ -28,7 +28,7 @@ $ cd scripts
 $ ./download_dpc3_traces.sh
 ```
 
-## Run simulation
+## Run simulation (ChampSim trace files)
 
 Execute `run_champsim_iisc.sh` with proper input arguments. The default `TRACE_DIR` in `run_champsim.sh` is set to `$PWD/dpc3_traces`. <br>
 
@@ -46,7 +46,7 @@ ${OPTION}: extra option for "-low_bandwidth" (src/main.cc)
 ```
 Simulation results will be stored under "results_${N_SIM}M" as a form of "${TRACE}-${BINARY}-${OPTION}.txt".<br> 
 
-* Multi-core simulation: Run simulation with `run_4core.sh` script. <br>
+* Multi-core simulation: Run simulation with `run_4core_iisc.sh` script. <br>
 ```
 Usage: ./run_4core_iisc.sh [BINARY] [N_WARM] [N_SIM] [N_MIX] [TRACE0] [TRACE1] [TRACE2] [TRACE3] [OPTION]
 $ ./run_4core_iisc.sh bimodal-no-no-no-next_line-lru-4core 1 10 0 600.perlbench_s-210B.champsimtrace.xz \\
@@ -54,6 +54,21 @@ $ ./run_4core_iisc.sh bimodal-no-no-no-next_line-lru-4core 1 10 0 600.perlbench_
 ```
 Note that we need to specify multiple trace files for `run_4core.sh`. `N_MIX` is used to represent a unique ID for mixed multi-programmed workloads. 
 
+## Run simulation (CloudSuite trace files)
+Execute `run_cloudsuite_iisc.sh` with proper input arguments. The default `TRACE_DIR` in `run_champsim.sh` is set to `$PWD/dpc3_traces`. <br>
+
+* Single-core simulation: Run simulation with `run_cloudsuite_iisc.sh` script.
+
+```
+Usage: ./run_cloudsuite_iisc.sh [BINARY] [N_WARM] [N_SIM] [TRACE]
+$ ./run_cloudsuite_iisc.sh bimodal-no-no-no-next_line-lru-1core 1 10 some.cloudsuite.trace.xz
+
+${BINARY}: ChampSim binary compiled by "build_champsim_iisc.sh" (bimodal-no-no-no-next_line-lru-1core)
+${N_WARM}: number of instructions for warmup (1 million)
+${N_SIM}:  number of instructinos for detailed simulation (10 million)
+${TRACE}: trace name (600.perlbench_s-210B.champsimtrace.xz)
+${OPTION}: extra option for "-low_bandwidth" (src/main.cc)
+```
 
 ## Add your own branch predictor, data prefetchers, and replacement policy
 **Copy an empty template**
@@ -84,7 +99,11 @@ $ ./run_champsim_iisc.sh mybranch-myperf-mypref-mypref-mypref-myrepl-1core 1 10 
 
 # Evaluate Simulation
 
-ChampSim measures the IPC (Instruction Per Cycle) value as a performance metric. <br>
+ChampSim-IISc measures the IPC (Instruction Per Cycle) value as a performance metric. <br>
 There are some other useful metrics printed out at the end of simulation. <br>
 
 Good luck and be a ChampSim-IISc-Champion! <br>
+<br>
+Author: Akash Maji<br>
+Contact: akashmaji@iisc.ac.in<br>
+
