@@ -23,11 +23,13 @@ https://github.com/akashmaji946/ChampSim-IISc
 #define TAGE_GLOBAL_HISTORY_BUFFER_LENGTH 1024
 #define TAGE_PATH_HISTORY_BUFFER_LENGTH 32
 #define TAGE_MIN_HISTORY_LENGTH 4  // Using min history length
-#define TAGE_HISTORY_ALPHA 1.6
+#define TAGE_HISTORY_ALPHA 2
 #define TAGE_RESET_USEFUL_INTERVAL 512000
 
-const uint8_t TAGE_INDEX_BITS[TAGE_NUM_COMPONENTS] = {13, 13, 12, 12, 11, 11, 11, 11};
-const uint8_t TAGE_TAG_BITS[TAGE_NUM_COMPONENTS] = {13, 13, 11, 11, 9, 9, 9, 9};
+// each table of size 2^ 11 entries
+const uint8_t TAGE_INDEX_BITS[TAGE_NUM_COMPONENTS] = {11, 11, 11, 11, 11, 11, 11, 11};
+const uint8_t TAGE_TAG_BITS[TAGE_NUM_COMPONENTS]={39, 35, 31, 27, 27, 23, 19, 15};
+
 
 struct tage_predictor_table_entry
 {

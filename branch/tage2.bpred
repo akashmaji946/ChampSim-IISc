@@ -22,7 +22,7 @@ https://github.com/akashmaji946/ChampSim-IISc
 #define TAGE_USEFUL_BITS 2
 #define TAGE_GLOBAL_HISTORY_BUFFER_LENGTH 1024
 #define TAGE_PATH_HISTORY_BUFFER_LENGTH 32
-#define TAGE_MIN_HISTORY_LENGTH 4  // Using min history length
+#define TAGE_MIN_HISTORY_LENGTH 12  // Using min history length
 #define TAGE_HISTORY_ALPHA 1.6
 #define TAGE_RESET_USEFUL_INTERVAL 512000
 

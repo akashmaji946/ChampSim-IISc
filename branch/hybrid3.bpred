@@ -1,12 +1,124 @@
-#include "ooo_cpu.h"
-
 /*
 Original Credits: (Thanks for making it publicly available!)
-
+https://github.com/casperIITB/ChampSim
+https://github.com/ChampSim/ChampSim
 
 Adapted By:
 Akash Maji (akashmaji@iisc.ac.in)
 https://github.com/akashmaji946/ChampSim-IISc
+*/
+
+#include "ooo_cpu.h"
+#include <bitset>
+
+int cpu = 0;
+
+/*
+-----------------------------------------------------
+Storage Cost Estimation: (META Predictor of HYBRID)
+-----------------------------------------------------
+We want to have at most 1 KB for our bimodal meta predictor per CPU
+We will use 2-bit saturating counter
+So entry size = 2 bits
+Number of entries = 1K Bytes / 2 bits
+                  = 1024 * 8 bits / 2 bits
+                  = 4192
+Largest prime less than 4192 = 4187
+*/
+
+#define BIMODAL_TABLE_SIZE 4192
+#define BIMODAL_PRIME 4187
+#define MAX_COUNTER 3
+int bimodal_table[NUM_CPUS][BIMODAL_TABLE_SIZE];
+
+
+/*
+-----------------------------------------------------
+Storage Cost Estimation:(GShare Part of HYBRID)
+----------------------------------------------------
+For 25:75. 50:50 and 75:25 configurations of HYBRID predictor 
+with a total storage budget of 64KB,
+We want to have 16KB, 32KB and 48KB respectively for our gshare predictor per CPU
+
+We will use 2-bit saturating counter
+So entry size = 2 bits
+
+For 16KB:
+Number of entries = 16 * 8 K bits / 2 bits
+                  = 64 K
+                  = 65536
+
+For 32KB:
+Number of entries = 32 * 8 K bits / 2 bits
+                  = 128 K
+                  = 131072
+
+For 48KB:
+Number of entries = 48 * 8 K bits / 2 bits
+                  = 196 K
+                  = 262144
+
+
+*/
+
+#define GLOBAL_HISTORY_LENGTH 16
+#define GLOBAL_HISTORY_MASK (1 << GLOBAL_HISTORY_LENGTH) - 1
+int branch_history_vector[NUM_CPUS];
+
+#define GS_HISTORY_TABLE_SIZE 262144
+int gs_history_table[NUM_CPUS][GS_HISTORY_TABLE_SIZE];
+int my_last_prediction[NUM_CPUS];
+
+/*
+-----------------------------------------------------
+Storage Cost Estimation:(TAGE Part of HYBRID)
+----------------------------------------------------
+For 75:25. 50:50 and 25:75 configurations of HYBRID predictor 
+with a total storage budget of 64KB,
+We want to have 16KB, 32KB and 48KB respectively for our TAGE predictor per CPU
+
+For 16KB:
+=========
+const uint8_t TAGE_INDEX_BITS[TAGE_NUM_COMPONENTS] = {11, 11, 11, 10};
+const uint8_t TAGE_TAG_BITS[TAGE_NUM_COMPONENTS] = {11, 12, 13, 14};
+
+Total Tables Size = (16*2^11 + 17*2^11 + 18*2^11 + 18*2^10) bits
+                  = 32Kb + 34Kb + 36Kb + 18Kb
+                  = 120 Kb
+                  = 15 KB
+Bimodal Table Size = 4096 * 2 bits
+                   = 2 ^ 13 bits
+                   = 1 KB
+Total TAGE Size = 16KB
+
+For 32KB:
+=========
+const uint8_t TAGE_INDEX_BITS[TAGE_NUM_COMPONENTS] = {12, 12, 11, 11, 11, 10};
+const uint8_t TAGE_TAG_BITS[TAGE_NUM_COMPONENTS] = {9, 10, 11, 12, 13, 14};
+
+Total Tables Size = (14*2^12 + 15*2^12 + 16*2^11 + 17*2^11 + 18*2^11 + 19*2^10) bits
+                  = (56 + 60 + 32 + 34 + 36 + 19)Kb
+                  = 237Kb
+                  = 30KB
+Bimodal Table Size = 8192 * 2 bits
+                   = 2 ^ 14 bits
+                   = 2 KB
+Total TAGE Size = 32KB
+
+For 48KB:
+=========
+const uint8_t TAGE_INDEX_BITS[TAGE_NUM_COMPONENTS] = {13, 12, 11, 11, 11, 11, 10, 10};
+const uint8_t TAGE_TAG_BITS[TAGE_NUM_COMPONENTS] = {10, 10, 11, 12, 12, 13, 14, 15};
+
+Total Tables Size = (14*2^13 + 15*2^12 + 16*2^11 + 17*2^11 + 17*2^11 + 18*2^10 + 19*2^10 + 20*2^10) bits
+                  = (56 + 60 + 32 + 34 + 34 + 18 + 19 + 20)Kb
+                  = 337Kb
+                  = 43KB
+Bimodal Table Size = 16384 * 2 bits
+                   = 2 ^ 15 bits
+                   = 4 KB
+Total TAGE Size = 47KB
+                  
 */
 
 
@@ -14,20 +126,23 @@ https://github.com/akashmaji946/ChampSim-IISc
 #define Index uint16_t
 #define Path uint64_t
 #define History uint64_t
-#define TAGE_BIMODAL_TABLE_SIZE 16384
+#define TAGE_BIMODAL_TABLE_SIZE 4096
 #define TAGE_MAX_INDEX_BITS 14
-#define TAGE_NUM_COMPONENTS 8 // There are 8 TAGE tables 
+#define TAGE_NUM_COMPONENTS 4 // There are 8 TAGE tables 
 #define TAGE_BASE_COUNTER_BITS 2
 #define TAGE_COUNTER_BITS 3
 #define TAGE_USEFUL_BITS 2
 #define TAGE_GLOBAL_HISTORY_BUFFER_LENGTH 1024
 #define TAGE_PATH_HISTORY_BUFFER_LENGTH 32
-#define TAGE_MIN_HISTORY_LENGTH 4  // Using min history length
+#define TAGE_MIN_HISTORY_LENGTH 8  // Using min history length
 #define TAGE_HISTORY_ALPHA 1.6
 #define TAGE_RESET_USEFUL_INTERVAL 512000
 
-const uint8_t TAGE_INDEX_BITS[TAGE_NUM_COMPONENTS] = {13, 13, 12, 12, 11, 11, 11, 11};
-const uint8_t TAGE_TAG_BITS[TAGE_NUM_COMPONENTS] = {13, 13, 11, 11, 9, 9, 9, 9};
+const uint8_t TAGE_INDEX_BITS[TAGE_NUM_COMPONENTS] = {11, 11, 11, 10};
+const uint8_t TAGE_TAG_BITS[TAGE_NUM_COMPONENTS] = {11, 12, 13, 14};
+
+
+// TAGE START //
 
 struct tage_predictor_table_entry
 {
@@ -383,20 +498,135 @@ Tage::~Tage()
 {
 }
 
-
 Tage tage_predictor[NUM_CPUS];
 
-void O3_CPU::initialize_branch_predictor()
+void initialize_branch_predictor2()
 {
     tage_predictor[cpu].init();
 }
 
-uint8_t O3_CPU::predict_branch(uint64_t ip)
+uint8_t predict_branch2(uint64_t ip)
 {
     return tage_predictor[cpu].predict(ip);
 }
 
-void O3_CPU::last_branch_result(uint64_t ip, uint8_t taken)
+void last_branch_result2(uint64_t ip, uint8_t taken)
 {
     tage_predictor[cpu].update(ip, taken);
 }
+
+// TAGE END //
+
+// GSHARE START //
+void initialize_branch_predictor1()
+{
+    cout << "CPU " << cpu << " GSHARE branch predictor" << endl;
+
+    branch_history_vector[cpu] = 0;
+    my_last_prediction[cpu] = 0;
+
+    for(int i=0; i<GS_HISTORY_TABLE_SIZE; i++)
+        gs_history_table[cpu][i] = 2; // 2 is slightly taken
+}
+
+unsigned int gs_table_hash(uint64_t ip, int bh_vector)
+{
+    unsigned int hash = ip^(ip>>GLOBAL_HISTORY_LENGTH)^(ip>>(GLOBAL_HISTORY_LENGTH*2))^bh_vector;
+    hash = hash%GS_HISTORY_TABLE_SIZE;
+
+    //printf("%d\n", hash);
+
+    return hash;
+}
+
+uint8_t predict_branch1(uint64_t ip)
+{
+    int prediction = 1;
+
+    int gs_hash = gs_table_hash(ip, branch_history_vector[cpu]);
+
+    if(gs_history_table[cpu][gs_hash] >= 2)
+        prediction = 1;
+    else
+        prediction = 0;
+
+    my_last_prediction[cpu] = prediction;
+
+    return prediction;
+}
+
+void last_branch_result1(uint64_t ip, uint8_t taken)
+{
+    int gs_hash = gs_table_hash(ip, branch_history_vector[cpu]);
+
+    if(taken == 1) {
+        if(gs_history_table[cpu][gs_hash] < 3)
+            gs_history_table[cpu][gs_hash]++;
+    } else {
+        if(gs_history_table[cpu][gs_hash] > 0)
+            gs_history_table[cpu][gs_hash]--;
+    }
+
+    // update branch history vector
+    branch_history_vector[cpu] <<= 1;
+    branch_history_vector[cpu] &= GLOBAL_HISTORY_MASK;
+    branch_history_vector[cpu] |= taken;
+}
+
+
+
+
+
+// GSHARE END //
+
+///////////////////////////////// HYBRID (GSHARE+TAGE) /////////////////////////////////////////////
+
+int HYBRID_TAKEN = 0;
+void O3_CPU::initialize_branch_predictor()
+{
+    cout << "CPU " << cpu << " Hybrid branch predictor" << endl;
+
+    for(int i = 0; i < BIMODAL_TABLE_SIZE; i++)
+        bimodal_table[cpu][i] = 0;
+
+    initialize_branch_predictor1();
+    initialize_branch_predictor2();
+
+    
+}
+
+uint8_t O3_CPU::predict_branch(uint64_t ip)
+{
+    uint32_t hash = ip % BIMODAL_PRIME;
+    uint8_t prediction = (bimodal_table[cpu][hash] >= ((MAX_COUNTER + 1)/2)) ? 1 : 0;
+
+    // return prediction;
+    if(prediction == 1){
+        HYBRID_TAKEN = 1;
+        return predict_branch1 (ip);
+    }else{
+        HYBRID_TAKEN = 0;
+        return predict_branch2(ip);
+    }
+}
+
+void O3_CPU::last_branch_result(uint64_t ip, uint8_t taken)
+{
+    uint32_t hash = ip % BIMODAL_PRIME;
+
+    if (taken && (bimodal_table[cpu][hash] < MAX_COUNTER))
+        bimodal_table[cpu][hash]++;
+    else if ((taken == 0) && (bimodal_table[cpu][hash] > 0))
+        bimodal_table[cpu][hash]--;
+
+
+
+    if(HYBRID_TAKEN == 1){
+        last_branch_result1(ip, taken);
+    }else{
+        last_branch_result2(ip, taken);
+    }
+}
+
+
+//////////////////////////////////////////////////////////////////////////////
